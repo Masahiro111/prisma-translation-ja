@@ -1,53 +1,27 @@
-Get started
+# Prisma をはじめる
 
 Welcome 👋
 
-Explore our products that make it easy to build and scale data-driven applications:
+データ駆動型アプリケーションの構築と拡張を容易にする当社の製品をご覧ください。
 
-Prisma ORM is a next-generation Node.js and TypeScript ORM that unlocks a new level of developer experience when working with databases thanks to its intuitive data model, automated migrations, type-safety & auto-completion.
+`Prisma ORM` は、次世代の Node.js および TypeScript ORM で、直感的なデータモデル、自動マイグレーション、型安全性、自動補完機能により、データベースを使用する際の開発者のエクスペリエンスを新しいレベルに引き上げます。
 
-Prisma Accelerate is a global database cache with scalable connection pooling to make your queries fast.
+`Prisma Accelerate` は、スケーラブルなコネクションプールを備えたグローバルなデータベースキャッシュで、クエリを高速化します。
 
-Prisma Pulse allows you to react to database changes with type-safe model subscriptions.
-Prisma ORM
+`Prisma Pulse` を使用すると、型安全なモデルサブスクリプションを使用してデータベースの変更に対応できます。
 
-Add Prisma ORM to your application in a few minutes to start modeling your data, run schema migrations and query your database.
-Explore quickly with a SQLite database
+## Prisma ORM
 
-These options don't require you to have your own database running.
-Quickstart
+数分で Prisma ORM をアプリケーションに追加し、データのモデリング、スキーママイグレーションの実行、データベースへのクエリを開始できます。
 
-Set up Prisma ORM from scratch with a SQLite database in 5 minutes.
-Examples
+SQLite を使用して Prisma を試してみよう！
 
-Explore our ready-to-run examples with your favorite frameworks and libraries.
-Choose an option to get started with your own database
+SQLite は、データベース自体を起動させる必要はありません。
 
-Select one of these options if you want to connect Prisma ORM to your own database.
+[クイックスタート]()：SQLite データベースを使用して Prisma ORM をゼロから 5 分でセットアップします。
 
-    New database
-    Existing database
+[サンプル]()：お気に入りのフレームワークとライブラリを使用して、すぐに実行できるサンプルを試してみましょう。
 
-Set up Prisma ORM from scratch with your favorite database and learn basic workflows like data modeling, querying, and migrations.
-Prisma Accelerate
+## 他のデータベースではじめる
 
-Make your database queries faster by scaling your database connections and caching database results at the edge with Prisma Accelerate.
-Get started
-
-Add Accelerate to your app to use global database caching & connection pooling.
-Examples
-
-Explore our ready-to-run examples using Accelerate.
-
-Speed Test
-
-Run the speed test to see how Prisma Accelerate can make your app faster.
-Prisma Pulse
-
-Build real-time applications by subscribing to data changes in your database using Prisma Pulse.
-Get started
-
-Add Pulse to your app to react to database changes with type-safe model subscriptions.
-Examples
-
-Explore our ready-to-run examples using Pulse.
+Prisma ORM を SQLite 以外のデータベースに接続することも可能です。
