@@ -28,27 +28,27 @@ Prisma ORM を SQLite 以外のデータベースに接続することも可能�
 
 # クイックスタート
 
-In this Quickstart guide, you'll learn how to get started with Prisma ORM from scratch using a plain **TypeScript** project and a local `SQLite` database file. It covers **data modeling**, **migrations** and **querying** a database.
+このクイックスタートガイドでは、プレーンな **TypeScript** プロジェクトとローカルの `SQLite` データベースファイルを使用して、Prisma ORM を最初から使い始める方法を学習します。**データモデリング**、**マイグレーション**、データベースの **クエリ** について説明します。
 
-If you want to use Prisma ORM with your own PostgreSQL, MySQL, MongoDB or any other supported database, go here instead:
+PostgreSQL、MySQL、MongoDB、その他サポートされているデータベースで Prisma ORM を使用したい場合は以下をご覧ください。
 
-- Start with Prisma ORM from scratch
-- Add Prisma ORM to an existing project
+- Prisma ORM をゼロから始める
+- 既存のプロジェクトに Prisma ORM を追加する
 
-Prerequisites
+動作要件
 
-You need Node.js v16.13.0 or higher for this guide (learn more about system requirements).
+このガイドには Node.js v16.13.0 以上が必要です（システム要件の詳細については、こちらをご覧ください）。
 
-## 1. Create TypeScript project and set up Prisma ORM
+## 1. TypeScript プロジェクトの作成と Prisma ORM のセットアップ
 
-As a first step, create a project directory and navigate into it:
+最初のステップとして、プロジェクトディレクトリを作成し、そこに移動します。
 
 ```shell
 mkdir hello-prisma
 cd hello-prisma
 ```
 
-Next, initialize a TypeScript project using npm:
+次に、npm を使用して TypeScript プロジェクトを初期化します。
 
 ```shell
 npm init -y
@@ -369,6 +369,6 @@ The Prisma blog features comprehensive tutorials about Prisma ORM, check out our
 - [Build a fullstack app with Remix]() (5 parts, including videos)
 - [Build a REST API with NestJS]()
 
-### Join the Prisma community 💚
+### Prisma コミュニティに参加しましょう 💚
 
 Prisma has a huge [community]() of developers. Join us on [Discord]() or ask questions using [GitHub Discussions]().
