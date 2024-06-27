@@ -55,34 +55,34 @@ npm init -y
 npm install typescript ts-node @types/node --save-dev
 ```
 
-This creates a `package.json` with an initial setup for your TypeScript app.
+これにより、TypeScript アプリの初期設定を含む `package.json` が作成されます。
 
 > [!NOTE]
-> See installation instructions to learn how to install Prisma using a different package manager.
+> 別のパッケージマネージャを使用して Prisma をインストールする方法については、インストール手順を参照してください。
 
-Now, initialize TypeScript:
+次に、TypeScript を初期化します。
 
 ```shell
 npx tsc --init
 ```
 
-Then, install the Prisma CLI as a development dependency in the project:
+次に、プロジェクトの開発依存関係として Prisma CLI をインストールします。
 
 ```shell
 npm install prisma --save-dev
 ```
 
-Finally, set up Prisma ORM with the `init` command of the Prisma CLI:
+最後に、Prisma CLI の `init` コマンドを使用して Prisma ORM をセットアップします。
 
 ```shell
 npx prisma init --datasource-provider sqlite
 ```
 
-This creates a new `prisma` directory with a `prisma.schema` file and configures SQLite as your database. You're now ready to model your data and create your database with some tables.
+これにより、新しい `prisma` ディレクトリと `prisma.schema` ファイルが作成され、データベースとして SQLite が設定されます。これでデータをモデル化し、いくつかのテーブルを持つデータベースを作成する準備ができました。
 
-## 2. Model your data in the Prisma schema
+## 2. Prisma スキーマでデータをモデル化する
 
-The Prisma schema provides an intuitive way to model data. Add the following models to your `schema.prisma` file:
+Prisma スキーマは、データをモデル化する直感的な方法を提供します。次のモデルを `schema.prisma` ファイルに追加します。
 
 `prisma/schema.prisma`
 
@@ -104,33 +104,32 @@ model Post {
 }
 ```
 
-Models in the Prisma schema have two main purposes:
+Prisma スキーマのモデルには、主に２つの目的があります。
 
-- Represent the tables in the underlying database
-- Serve as foundation for the generated Prisma Client API
+- 基礎となるデータベース内のテーブルを表す
+- 生成された Prisma クライアント API の基盤として機能する
 
-In the next section, you will map these models to database tables using Prisma Migrate.
+次のセクションでは、Prisma Migrate を使用してこれらのモデルをデータベーステーブルにマッピングします。
 
-## 3. Run a migration to create your database tables with Prisma Migrate
+## 3. データベーステーブル作成のため Prisma Migrate でマイグレーションを実行
 
-At this point, you have a Prisma schema but no database yet. Run the following command in your terminal to create the SQLite database and the `User` and `Post` tables 
-represented by your models:
+この時点では、Prisma スキーマはありますが、データベースはまだありません。ターミナルで次のコマンドを実行して、SQLite データベースと、モデルで表される `User` と `Post` テーブルを作成します。
 
 ```shell
 npx prisma migrate dev --name init
 ```
 
-This command did three things:
+このコマンドは次の３つのことを実行します。
 
-1. It created a new SQL migration file for this migration in the `prisma/migrations` directory.
-1. It executed the SQL migration file against the database.
-1. It ran `prisma generate` under the hood (which installed the `@prisma/client` package and generated a tailored Prisma Client API based on your models).
+1. このマイグレーション用の新しい SQL マイグレーションファイルを `prisma/migrations` ディレクトリに作成します
+1. データベースに対して SQL マイグレーションファイルを実行します
+1. 内部で `prisma generate` を実行します（これにより `@prisma/client` パッケージがインストールされ、モデルに基づいてカスタマイズされた Prisma Client API が生成されます）
 
-Because the SQLite database file didn't exist before, the command also created it inside the `prisma` directory with the name `dev.db` as defined via the environment variable in the `.env` file.
+SQLite データベースファイルがないため `.env` ファイルの環境変数で定義された `dev.db` という名前で `prisma` ディレクトリ内に作成されます。
 
-Congratulations, you now have your database and tables ready. Let's go and learn how you can send some queries to read and write data!
+これでデータベースとテーブルの準備ができました。それでは、どのようにクエリを送信してデータを読み書きできるかを学びましょう！
 
-## 4. Explore how to send queries to your database with Prisma Client
+## 4. Prisma Client を使用したデータベースへのクエリ送信方法
 
 To send queries to the database, you will need a TypeScript file to execute your Prisma Client queries. Create a new file called script.ts for this purpose:
 
