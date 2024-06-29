@@ -131,13 +131,13 @@ SQLite データベースファイルがないため `.env` ファイルの環�
 
 ## 4. Prisma Client を使用したデータベースへのクエリ送信方法
 
-To send queries to the database, you will need a TypeScript file to execute your Prisma Client queries. Create a new file called script.ts for this purpose:
+データベースにクエリを送信するには、Prisma Client のクエリを実行するための TypeScript ファイルが必要です。このために script.ts という新しいファイルを作成します。
 
 ```shell
 touch script.ts
 ```
 
-Then, paste the following boilerplate into it:
+次に、次の定型文を貼り付けます。
 
 `script.ts`
 
@@ -161,11 +161,11 @@ main()
   })
 ```
 
-This code contains a `main` function that's invoked at the end of the script. It also instantiates `PrismaClient` which represents the query interface to your database.
+このコードには、スクリプトの最後に呼び出される `main` 関数が含まれています。また、データベースへのクエリインターフェイスを表す `PrismaClient` のインスタンスを作成します。
 
-### 4.1. Create a new `User` record
+### 4.1. 新しい `User` レコードの作成
 
-Let's start with a small query to create a new `User` record in the database and log the resulting object to the console. Add the following code to your `script.ts` file:
+まず、データベースに新しい `User` レコードを作成し、結果のオブジェクトをコンソールにログ出力する小さなクエリから始めましょう。次のコードを `script.ts` ファイルに追加します。
 
 `script.ts`
 
@@ -195,23 +195,23 @@ Let's start with a small query to create a new `User` record in the database and
     })
 ```
 
-Instead of copying the code, you can type it out in your editor to experience the autocompletion Prisma Client provides. You can also actively invoke the autocompletion by pressing the `CTRL` + `SPACE` keys on your keyboard.
+コードをコピーする代わりに、エディタでコードを入力すると、Prisma クライアントが提供するオートコンプリートを体験できます。また、キーボードの `CTRL` + `SPACE` キーを押すことで、アクティブにオートコンプリートを呼び出すこともできます。
 
-Next, execute the script with the following command:
+次に、以下のコマンドでスクリプトを実行します。
 
 ```shell
 npx ts-node script.ts
 ```
 
-Great job, you just created your first database record with Prisma Client! 🎉
+これで、Prisma Client で最初のデータベースレコードが作成されました！🎉
 
-In the next section, you'll learn how to read data from the database.
+次のセクションでは、データベースからデータを読み取る方法を学びます。
 
-### 4.2. Retrieve all `User` records
+### 4.2. すべての `User` レコードを取得
 
-Prisma Client offers various queries to read data from your database. In this section, you'll use the `findMany` query that returns all the records in the database for a given model.
+Prisma Client には、データベースからデータを読み込むためのさまざまなクエリが用意されています。このセクションでは、指定されたモデルのデータベース内のすべてのレコードを返す `findMany` クエリを使用します。
 
-Delete the previous Prisma Client query and add the new `findMany` query instead:
+以前の Prisma Client クエリを削除し、代わりに新しい `findMany` クエリを追加します。
 
 `script.ts`
 
@@ -236,19 +236,19 @@ Delete the previous Prisma Client query and add the new `findMany` query instead
     })
 ```
 
-Execute the script again:
+スクリプトを再度実行します。
 
 ```shell
 npx ts-node script.ts
 ```
 
-Notice how the single `User` object is now enclosed with square brackets in the console. That's because the `findMany` returned an array with a single object inside.
+コンソールで、単一の `User` オブジェクトが角括弧で囲まれていることに注目してください。これは、`findMany` が配列の中に１つのオブジェクトを返したためです。
 
-### 4.3. Explore relation queries with Prisma Client
+### 4.3. Prisma Client のリレーションクエリ
 
-One of the main features of Prisma Client is the ease of working with [relations](). In this section, you'll learn how to create a `User` and a `Post` record in a nested write query. Afterwards, you'll see how you can retrieve the relation from the database using the `include` option.
+Prisma Client の主な機能の１つは、[relations]() を簡単に操作できることです。このセクションでは、ネストされた書き込みクエリで `User` レコードと `Post` レコードを作成する方法を学びます。その後、`include` オプションを使用してデータベースからリレーションを取得する方法を説明します。
 
-First, adjust your script to include the nested query:
+まず、ネストされたクエリを含めるようにスクリプトを調整します。
 
 `script.ts`
 
@@ -290,15 +290,15 @@ First, adjust your script to include the nested query:
     })
 ```
 
-Run the query by executing the script again:
+スクリプトを再度実行してクエリを実行します。
 
 ```shell
 npx ts-node script.ts
 ```
 
-By default, Prisma Client only returns scalar fields in the result objects of a query. That's why, even though you also created a new `Post` record for the new `User` record, the console only printed an object with three scalar fields: `id`, `email` and `name`.
+デフォルトでは、Prisma Client はクエリの結果オブジェクトにスカラフィールドのみを返します。そのため、新しい `User` レコードに対して新しい `Post` レコードを作成しても、コンソールには `id`、`email`、`name` の３つのスカラフィールドを持つオブジェクトのみが出力されました。
 
-In order to also retrieve the `Post` records that belong to a `User`, you can use the `include` option via the `posts` relation field:
+`User` に属する `Post` レコードも取得するには、`posts` リレーションフィールドを介して `include` オプションを使用します。
 
 `script.ts`
 
@@ -327,47 +327,47 @@ In order to also retrieve the `Post` records that belong to a `User`, you can us
     })
 ```
 
-Run the script again to see the results of the nested read query:
+スクリプトを再度実行して、ネストされた読み込みクエリの結果を確認します。
 
 ```shell
 npx ts-node script.ts
 ```
 
-This time, you're seeing two `User` objects being printed. Both of them have a `posts` field (which is empty for "`Alice`" and populated with a single `Post` object for "`Bob`") that represents the `Post` records associated with them.
+今回は、２つの `User` オブジェクトが表示されます。どちらも `posts` フィールド（"`Alice`" の場合は空で、"`Bob`" の場合は1つの `Post` オブジェクトが格納されている）を持っており、このフィールドが `Post` レコードを表しています。
 
-Notice that the objects in the `usersWithPosts` array are fully typed as well. This means you will get autocompletion and the TypeScript compiler will prevent you from accidentally typing them.
+`usersWithPosts` 配列内のオブジェクトも完全に型指定されていることに注意してください。これはオートコンプリート（自動補完）が行われ、TypeScript コンパイラが誤ってタイプしてしまうことを防いでくれます。
 
-## 5. Next steps
+## 5. 次のステップ
 
-In this Quickstart guide, you have learned how to get started with Prisma ORM in a plain TypeScript project. Feel free to explore the Prisma Client API a bit more on your own, e.g. by including filtering, sorting, and pagination options in the `findMany` query or exploring more operations like `update` and `delete` queries.
+このクイックスタートガイドでは、プレーンな TypeScript プロジェクトで Prisma ORM を使い始める方法を学びました。例えば、`findMany` クエリにフィルタリング、ソート、ページネーションオプションを追加したり、`update` クエリや `delete` クエリのような操作を追加したりすることで自由に Prisma Client API をより探求することができます。
 
-### Explore the data in Prisma Studio
+### Prisma Studio でのデータ取り扱い
 
-Prisma ORM comes with a built-in GUI to view and edit the data in your database. You can open it using the following command:
+Prisma ORM には、データベース内のデータを表示および編集するための GUI が組み込まれています。次のコマンドで開くことができます。
 
 ```
 npx prisma studio
 ```
 
-### Set up Prisma ORM with your own database
+### 独自のデータベースで Prisma ORM を設定
 
-If you want to move forward with Prisma ORM using your own PostgreSQL, MySQL, MongoDB or any other supported database, follow the Set Up Prisma ORM guides:
+独自の PostgreSQL、MySQL、MongoDB、またはその他のサポートされているデータベースを使用して Prisma ORM を進めたい場合は、Prisma ORM のセットアップガイドに従ってください。
 
-- [Start with Prisma ORM from scratch]()
-- [Add Prisma ORM to an existing project]()
+- [Prisma ORM をゼロから始める]()
+- [既存のプロジェクトに Prisma ORM を追加する]()
 
-### Explore ready-to-run Prisma ORM examples
+### すぐに実行できる Prisma ORM の例を調べる
 
-Check out the [`prisma-examples`]() repository on GitHub to see how Prisma ORM can be used with your favorite library. The repo contains examples with Express, NestJS, GraphQL as well as fullstack examples with Next.js and Vue.js, and a lot more.
+GitHub の [`prisma-examples`]() リポジトリをチェックして、Prisma ORM をお気に入りのライブラリでどのように使用できるかを確認してください。リポジトリには、Express、NestJS、GraphQL の例や、Next.js と Vue.js を使用したフルスタックの例など、さまざまな例が含まれています。
 
-### Build an app with Prisma ORM
+### Prisma ORM でアプリを構築する
 
-The Prisma blog features comprehensive tutorials about Prisma ORM, check out our latest ones:
+Prisma ブログには Prisma ORM に関する包括的なチュートリアルが掲載されています。最新のものをご覧ください。
 
-- [Build a fullstack app with Next.js]()
-- [Build a fullstack app with Remix]() (5 parts, including videos)
-- [Build a REST API with NestJS]()
+- [Next.js でフルスタックアプリを構築する]()
+- [Remix でフルスタックアプリを構築する]() (5 部構成、動画を含む)
+- [NestJS で REST API を構築する]()
 
 ### Prisma コミュニティに参加しましょう 💚
 
-Prisma has a huge [community]() of developers. Join us on [Discord]() or ask questions using [GitHub Discussions]().
+Prisma には、開発者の巨大な [コミュニティ]() があります。[Discord]() に参加するか、[GitHub Discussions]() を使用して質問してください。
