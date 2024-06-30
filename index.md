@@ -376,61 +376,61 @@ Prisma には、開発者の巨大な [コミュニティ]() があります。[
 
 最初から始めるか、既存のプロジェクトに Prisma ORM を追加します。次のチュートリアルでは、Prisma CLI、Prisma Client、および Prisma Migrate について説明します。
 
-# Relational databases
+# リレーショナルデータベース
 
-Learn how to create a new Node.js or TypeScript project from scratch by connecting Prisma ORM to your database and generating a Prisma Client for database access. The following tutorial introduces you to the [Prisma CLI](), [Prisma Client](), and [Prisma Migrate]().
+Prisma ORM をデータベースに接続し、データベースにアクセスするための Prisma Client を生成して、新しい Node.js または TypeScript プロジェクトをゼロから作成する方法を紹介します。次のチュートリアルでは、[Prisma CLI]()、[Prisma Client]()、[Prisma Migrate]() について説明します。
 
-## Prerequisites
+## 前提条件
 
-In order to successfully complete this guide, you need:
+このガイドを完了するには、次のものが必要です。
 
-- [Node.js]() installed on your machine
-- a [PostgreSQL]() database server running
+- [Node.js]() をマシンにインストール済であること
+- [PostgreSQL]() データベースサーバが稼働していること
 
-> See [System requirements]() for exact version requirements.
+> 正確なバージョン要件については、[システム要件]() を参照してください。
 
-Make sure you have your database [connection URL]() at hand. If you don't have a database server running and just want to explore Prisma ORM, check out the [Quickstart]().
+データベースの [接続 URL]() が手元にあることを確認してください。データベースサーバーを実行しておらず、Prisma ORM を試してみたいだけの場合は、[クイックスタート]() を確認してください。
 
-## Create project setup
+## プロジェクト設定の作成
 
-As a first step, create a project directory and navigate into it:
+最初のステップとして、プロジェクトディレクトリを作成し、そこに移動します。
 
 ```shell
 mkdir hello-prisma
 cd hello-prisma
 ```
 
-Next, initialize a TypeScript project and add the Prisma CLI as a development dependency to it:
+次に、TypeScript プロジェクトを初期化し、Prisma CLI を開発依存として追加します。
 
 ```shell
 npm init -y
 npm install prisma typescript ts-node @types/node --save-dev
 ```
 
-This creates a `package.json` with an initial setup for your TypeScript app.
+これにより、TypeScript アプリの初期設定を含む `package.json` が作成されます。
 
-Next, initialize TypeScript:
+次に、TypeScript を初期化します。
 
 ```shell
 npx tsc --init
 ```
 
 > [!info]
-> See [installation instructions]() to learn how to install Prisma using a different package manager.
+> 別のパッケージマネージャを使用して Prisma をインストールする方法については、[インストール手順]() を参照してください。
 
-You can now invoke the Prisma CLI by prefixing it with `npx`:
+`npx` を付け加えて Prisma CLI を呼び出すことができます。
 
 ```shell
 npx prisma
 ```
 
-Next, set up your Prisma ORM project by creating your [Prisma Schema]() file with the following command:
+次に、次のコマンドで [Prisma Schema]() ファイルを作成し、Prisma ORM プロジェクトを設定します。
 
 ```shell
 npx prisma init
 ```
 
-This command does two things:
+このコマンドは次の２つのことを行います。
 
-- creates a new directory called `prisma` that contains a file called `schema.prisma`, which contains the Prisma schema with your database connection variable and schema models
-- creates the [`.env` file]() in the root directory of the project, which is used for defining environment variables (such as your database connection)
+- `prisma` という新しいディレクトリを作成します。このディレクトリには、データベース接続変数とスキーマモデルを記述した Prisma スキーマを含む `schema.prisma` というファイルが含まれます。
+- プロジェクトのルートディレクトリに [`.env` ファイル]() を作成します。これは環境変数（データベース接続など）を定義するために使用されます。
