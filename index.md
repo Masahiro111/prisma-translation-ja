@@ -434,3 +434,62 @@ npx prisma init
 
 - `prisma` という新しいディレクトリを作成します。このディレクトリには、データベース接続変数とスキーマモデルを記述した Prisma スキーマを含む `schema.prisma` というファイルが含まれます。
 - プロジェクトのルートディレクトリに [`.env` ファイル]() を作成します。これは環境変数（データベース接続など）を定義するために使用されます。
+
+# Connect your database
+
+To connect your database, you need to set the url field of the datasource block in your Prisma schema to your database [connection URL]():
+
+`prisma/schema.prisma`
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+```
+
+In this case, the `url` is [set via an environment variable]() which is defined in .env:
+
+`.env`
+
+```json
+DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+```
+
+> [!note]
+> We recommend adding `.env` to your `.gitignore` file to prevent committing your environment variables.
+
+You now need to adjust the connection URL to point to your own database.
+
+The [format of the connection URL]() for your database depends on the database you use. For PostgreSQL, it looks as follows (the parts spelled all-uppercased are placeholders for your specific connection details):
+
+```json
+postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA
+```
+
+Here's a short explanation of each component:
+
+- `USER`: The name of your database user
+- `PASSWORD`: The password for your database user
+- `HOST`: The name of your host name (for the local environment, it is localhost)
+- `PORT`: The port where your database server is running (typically 5432 for PostgreSQL)
+- `DATABASE`: The name of the [database]()
+- `SCHEMA`: The name of the [schema]() inside the database
+
+If you're unsure what to provide for the `schema` parameter for a PostgreSQL connection URL, you can probably omit it. In that case, the default schema name `public` will be used.
+
+As an example, for a PostgreSQL database hosted on Heroku, the [connection URL]() might look similar to this:
+
+`.env`
+
+```json
+DATABASE_URL="postgresql://opnmyfngbknppm:XXX@ec2-46-137-91-216.eu-west-1.compute.amazonaws.com:5432/d50rgmkqi2ipus?schema=hello-prisma"
+```
+
+When running PostgreSQL locally on macOS, your user and password as well as the database name typically correspond to the current user of your OS, e.g. assuming the user is called `janedoe`:
+
+`.env`
+
+```json
+DATABASE_URL="postgresql://janedoe:janedoe@localhost:5432/janedoe?schema=hello-prisma"
+```
