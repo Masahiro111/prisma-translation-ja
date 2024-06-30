@@ -415,7 +415,7 @@ npm install prisma typescript ts-node @types/node --save-dev
 npx tsc --init
 ```
 
-> [!info]
+> [!NOTE]
 > 別のパッケージマネージャを使用して Prisma をインストールする方法については、[インストール手順]() を参照してください。
 
 `npx` を付け加えて Prisma CLI を呼び出すことができます。
