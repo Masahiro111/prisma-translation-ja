@@ -371,3 +371,66 @@ Prisma ブログには Prisma ORM に関する包括的なチュートリアル�
 ### Prisma コミュニティに参加しましょう 💚
 
 Prisma には、開発者の巨大な [コミュニティ]() があります。[Discord]() に参加するか、[GitHub Discussions]() を使用して質問してください。
+
+# Prisma ORM のセットアップ
+
+最初から始めるか、既存のプロジェクトに Prisma ORM を追加します。次のチュートリアルでは、Prisma CLI、Prisma Client、および Prisma Migrate について説明します。
+
+# Relational databases
+
+Learn how to create a new Node.js or TypeScript project from scratch by connecting Prisma ORM to your database and generating a Prisma Client for database access. The following tutorial introduces you to the [Prisma CLI](), [Prisma Client](), and [Prisma Migrate]().
+
+## Prerequisites
+
+In order to successfully complete this guide, you need:
+
+- [Node.js]() installed on your machine
+- a [PostgreSQL]() database server running
+
+> See [System requirements]() for exact version requirements.
+
+Make sure you have your database [connection URL]() at hand. If you don't have a database server running and just want to explore Prisma ORM, check out the [Quickstart]().
+
+## Create project setup
+
+As a first step, create a project directory and navigate into it:
+
+```shell
+mkdir hello-prisma
+cd hello-prisma
+```
+
+Next, initialize a TypeScript project and add the Prisma CLI as a development dependency to it:
+
+```shell
+npm init -y
+npm install prisma typescript ts-node @types/node --save-dev
+```
+
+This creates a `package.json` with an initial setup for your TypeScript app.
+
+Next, initialize TypeScript:
+
+```shell
+npx tsc --init
+```
+
+> [!info]
+> See [installation instructions]() to learn how to install Prisma using a different package manager.
+
+You can now invoke the Prisma CLI by prefixing it with `npx`:
+
+```shell
+npx prisma
+```
+
+Next, set up your Prisma ORM project by creating your [Prisma Schema]() file with the following command:
+
+```shell
+npx prisma init
+```
+
+This command does two things:
+
+- creates a new directory called `prisma` that contains a file called `schema.prisma`, which contains the Prisma schema with your database connection variable and schema models
+- creates the [`.env` file]() in the root directory of the project, which is used for defining environment variables (such as your database connection)
