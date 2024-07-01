@@ -492,9 +492,9 @@ macOS 上で PostgreSQL をローカルに実行する場合、ユーザー名�
 DATABASE_URL="postgresql://janedoe:janedoe@localhost:5432/janedoe?schema=hello-prisma"
 ```
 
-# Using Prisma Migrate
+# Prisma Migrateの使用
 
-In this guide, you'll use [Prisma Migrate]() to create the tables in your database. Add the following data model to your [Prisma schema]() in `prisma/schema.prisma`:
+[Prisma Migrate]() を使用してデータベースにテーブルを作成します。`prisma/schema.prisma` の [Prisma schema]() に次のデータモデルを追加します。
 
 `prisma/schema.prisma`
 
@@ -526,18 +526,19 @@ model User {
 }
 ```
 
-To map your data model to the database schema, you need to use the prisma migrate CLI commands:
+データモデルをデータベーススキーマにマップするには、prisma migrate CLI コマンドを使用する必要があります。
 
 ```shell
 npx prisma migrate dev --name init
 ```
 
-This command does two things:
+このコマンドは次の２つのことを行います。
 
-    It creates a new SQL migration file for this migration
-    It runs the SQL migration file against the database
+1. このマイグレーション用の新しい SQL マイグレーションファイルを作成します
+1. データベースに対して SQL マイグレーションファイルを実行します
 
 > [!note]
-> generate is called under the hood by default, after running prisma migrate dev. If the prisma-client-js generator is defined in your schema, this will check if @prisma/client is installed and install it if it's missing.
+> generate は、prisma migrate dev を実行した後、デフォルトで内部的に呼び出されます。スキーマで prisma-client-js ジェネレータが定義されている場合、@prisma/client がインストールされているかどうかが確認され、インストールされていない場合はインストールされます。
+これで、Prisma Migrate を使用してデータベースに３つのテーブルが作成されました 🚀
 
 Great, you now created three tables in your database with Prisma Migrate 🚀
