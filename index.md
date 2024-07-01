@@ -546,14 +546,14 @@ npx prisma migrate dev --name init
 
 ## Install and generate Prisma Client
 
-To get started with Prisma Client, you need to install the @prisma/client package:
+Prisma Client を使い始めるには、@prisma/client パッケージをインストールする必要があります。
 
 ```shell
 npm install @prisma/client
 ```
 
-The install command invokes `prisma generate` for you which reads your Prisma schema and generates a version of Prisma Client that is tailored to your models.
+インストールコマンドによって `prisma generate` を呼び出し、Prisma スキーマを読み取り、モデルに合わせて調整されたバージョンの Prisma Client を生成します。
 
-![Install and generate Prisma Client](./beok1awp.bmp)
+![Prisma Client をインストールして生成](./beok1awp.bmp)
 
-Whenever you update your Prisma schema, you will have to update your database schema using either prisma migrate dev or prisma db push. This will keep your database schema in sync with your Prisma schema. The commands will also regenerate Prisma Client.
+Prisma スキーマを更新するたびに、prisma migrate dev または prisma db push を使用してデータベーススキーマを更新する必要があります。これにより、データベーススキーマが Prisma スキーマと同期されます。これらのコマンドにより、Prisma Client も再生成されます。
