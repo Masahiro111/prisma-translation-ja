@@ -539,6 +539,7 @@ npx prisma migrate dev --name init
 
 > [!note]
 > generate は、prisma migrate dev を実行した後、デフォルトで内部的に呼び出されます。スキーマで prisma-client-js ジェネレータが定義されている場合、@prisma/client がインストールされているかどうかが確認され、インストールされていない場合はインストールされます。
+
 これで、Prisma Migrate を使用してデータベースに３つのテーブルが作成されました 🚀
 
 Great, you now created three tables in your database with Prisma Migrate 🚀
