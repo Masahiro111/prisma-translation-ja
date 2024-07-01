@@ -491,3 +491,53 @@ macOS 上で PostgreSQL をローカルに実行する場合、ユーザー名�
 ```env
 DATABASE_URL="postgresql://janedoe:janedoe@localhost:5432/janedoe?schema=hello-prisma"
 ```
+
+# Using Prisma Migrate
+
+In this guide, you'll use [Prisma Migrate]() to create the tables in your database. Add the following data model to your [Prisma schema]() in `prisma/schema.prisma`:
+
+`prisma/schema.prisma`
+
+```prisma
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  posts   Post[]
+  profile Profile?
+}
+```
+
+To map your data model to the database schema, you need to use the prisma migrate CLI commands:
+
+```shell
+npx prisma migrate dev --name init
+```
+
+This command does two things:
+
+    It creates a new SQL migration file for this migration
+    It runs the SQL migration file against the database
+
+> [!note]
+> generate is called under the hood by default, after running prisma migrate dev. If the prisma-client-js generator is defined in your schema, this will check if @prisma/client is installed and install it if it's missing.
+
+Great, you now created three tables in your database with Prisma Migrate 🚀
