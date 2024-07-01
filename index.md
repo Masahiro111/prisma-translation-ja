@@ -435,11 +435,9 @@ npx prisma init
 - `prisma` という新しいディレクトリを作成します。このディレクトリには、データベース接続変数とスキーマモデルを記述した Prisma スキーマを含む `schema.prisma` というファイルが含まれます。
 - プロジェクトのルートディレクトリに [`.env` ファイル]() を作成します。これは環境変数（データベース接続など）を定義するために使用されます。
 
-# Connect your database
+# データベースの接続
 
-To connect your database, you need to set the url field of the datasource block in your Prisma schema to your database [connection URL]():
-
-`prisma/schema.prisma`
+データベースに接続するには、Prisma スキーマのデータソースブロックの url フィールドをデータベースの [接続 URL]() に設定する必要があります。
 
 ```prisma
 datasource db {
@@ -448,7 +446,7 @@ datasource db {
 }
 ```
 
-In this case, the `url` is [set via an environment variable]() which is defined in .env:
+この場合、`url` は .env で定義されている [環境変数を介して設定]() されます。
 
 `.env`
 
@@ -457,39 +455,39 @@ DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=pub
 ```
 
 > [!note]
-> We recommend adding `.env` to your `.gitignore` file to prevent committing your environment variables.
+> 環境変数がコミットされないようにするには、`.gitignore` ファイルに `.env` を追加することをお勧めします。
 
-You now need to adjust the connection URL to point to your own database.
+ここで、接続 URL を調整して、データベースの設定をする必要があります。
 
-The [format of the connection URL]() for your database depends on the database you use. For PostgreSQL, it looks as follows (the parts spelled all-uppercased are placeholders for your specific connection details):
+データベースの [接続 URL のフォーマット]() は、使用するデータベースによって異なります。PostgreSQL の場合は次のようになります（すべて大文字で表記されている部分は、特定の接続詳細のプレースホルダです）。
 
 ```json
 postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA
 ```
 
-Here's a short explanation of each component:
+各コンポーネントの簡単な説明は次のとおりです。
 
-- `USER`: The name of your database user
-- `PASSWORD`: The password for your database user
-- `HOST`: The name of your host name (for the local environment, it is localhost)
-- `PORT`: The port where your database server is running (typically 5432 for PostgreSQL)
-- `DATABASE`: The name of the [database]()
-- `SCHEMA`: The name of the [schema]() inside the database
+- `USER`: データベースユーザーの名前
+- `PASSWORD`: データベースユーザーのパスワード
+- `HOST`: ホスト名（ローカル環境の場合は localhost）
+- `PORT`: データベースサーバーが稼働しているポート（通常、PostgreSQL の場合は 5432）
+- `DATABASE`: [データベース]() の名前
+- `SCHEMA`: データベース内の[schema]()の名前
 
-If you're unsure what to provide for the `schema` parameter for a PostgreSQL connection URL, you can probably omit it. In that case, the default schema name `public` will be used.
+PostgreSQL 接続 URL の `schema` パラメータに何を指定すればよいかわからない場合は、省略してもかまいません。その場合、デフォルトのスキーマ名 `public` が使用されます。
 
-As an example, for a PostgreSQL database hosted on Heroku, the [connection URL]() might look similar to this:
+たとえば、Heroku でホストされている PostgreSQL データベースの場合、[接続 URL]() は次のようになります。
 
 `.env`
 
-```json
+```env
 DATABASE_URL="postgresql://opnmyfngbknppm:XXX@ec2-46-137-91-216.eu-west-1.compute.amazonaws.com:5432/d50rgmkqi2ipus?schema=hello-prisma"
 ```
 
-When running PostgreSQL locally on macOS, your user and password as well as the database name typically correspond to the current user of your OS, e.g. assuming the user is called `janedoe`:
+macOS 上で PostgreSQL をローカルに実行する場合、ユーザー名とパスワード、およびデータベース名は通常、OS の現在のユーザーに対応します。たとえば、ユーザーが `janedoe` と呼ばれていると仮定します。
 
 `.env`
 
-```json
+```env
 DATABASE_URL="postgresql://janedoe:janedoe@localhost:5432/janedoe?schema=hello-prisma"
 ```
