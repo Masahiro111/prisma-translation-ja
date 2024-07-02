@@ -542,9 +542,9 @@ npx prisma migrate dev --name init
 
 これで、Prisma Migrate を使用してデータベースに３つのテーブルが作成されました 🚀
 
-# Install Prisma Client
+# Prisma Client のインストール
 
-## Install and generate Prisma Client
+## Prisma Client をインストールと生成
 
 Prisma Client を使い始めるには、@prisma/client パッケージをインストールする必要があります。
 
@@ -557,3 +557,216 @@ npm install @prisma/client
 ![Prisma Client をインストールして生成](./beok1awp.bmp)
 
 Prisma スキーマを更新するたびに、prisma migrate dev または prisma db push を使用してデータベーススキーマを更新する必要があります。これにより、データベーススキーマが Prisma スキーマと同期されます。これらのコマンドにより、Prisma Client も再生成されます。
+
+# Querying the database
+
+## Write your first query with Prisma Client
+
+Now that you have generated [Prisma Client](), you can start writing queries to read and write data in your database. For the purpose of this guide, you'll use a plain Node.js script to explore some basic features of Prisma Client.
+
+Create a new file named `index.ts` and add the following code to it:
+
+`index.ts`
+
+```ts
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+  // ... you will write your Prisma Client queries here
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
+```
+
+Here's a quick overview of the different parts of the code snippet:
+
+1. Import the `PrismaClient` constructor from the `@prisma/client` node module
+1. Instantiate `PrismaClient`
+1. Define an `async` function named `main` to send queries to the database
+1. Call the `main` function
+1. Close the database connections when the script terminates
+
+Inside the `main` function, add the following query to read all `User` records from the database and print the result:
+
+`index.ts`
+
+```diff
+  async function main() {
+    // ... you will write your Prisma Client queries here
++   const allUsers = await prisma.user.findMany()
++   console.log(allUsers)
+  }
+```
+
+Now run the code with this command:
+
+```
+npx ts-node index.ts
+```
+
+This should print an empty array because there are no User records in the database yet:
+
+```
+[]
+```
+
+
+## Write data into the database
+
+The `findMany` query you used in the previous section only reads data from the database (although it was still empty). In this section, you'll learn how to write a query to write new records into the `Post` and `User` tables.
+
+Adjust the `main` function to send a `create` query to the database:
+
+`index.ts`
+
+```diff
+  async function main() {
++   await prisma.user.create({
++     data: {
++       name: 'Alice',
++       email: 'alice@prisma.io',
++       posts: {
++         create: { title: 'Hello World' },
++       },
++       profile: {
++         create: { bio: 'I like turtles' },
++       },
++     },
++   })
++ 
++   const allUsers = await prisma.user.findMany({
++     include: {
++       posts: true,
++       profile: true,
++     },
++   })
++   console.dir(allUsers, { depth: null })
+  }
+```
+
+This code creates a new `User` record together with new `Post` and `Profile` records using a [nested write]() query. The `User` record is connected to the two other ones via the `Post.author` ↔ `User.posts` and `Profile.user` ↔ `User.profile` [relation]() fields respectively.
+
+Notice that you're passing the [include]() option to `findMany` which tells Prisma Client to include the posts and profile relations on the returned `User` objects.
+
+Run the code with this command:
+
+```shell
+npx ts-node index.ts
+```
+
+The output should look similar to this:
+
+```js
+[
+  {
+    email: 'alice@prisma.io',
+    id: 1,
+    name: 'Alice',
+    posts: [
+      {
+        content: null,
+        createdAt: 2020-03-21T16:45:01.246Z,
+        updatedAt: 2020-03-21T16:45:01.246Z,
+        id: 1,
+        published: false,
+        title: 'Hello World',
+        authorId: 1,
+      }
+    ],
+    profile: {
+      bio: 'I like turtles',
+      id: 1,
+      userId: 1,
+    }
+  }
+]
+```
+
+Also note that `allUsers` is statically typed thanks to [Prisma Client's generated types](). You can observe the type by hovering over the `allUsers` variable in your editor. It should be typed as follows:
+
+```ts
+const allUsers: (User & {
+  posts: Post[]
+})[]
+
+export type Post = {
+  id: number
+  title: string
+  content: string | null
+  published: boolean
+  authorId: number | null
+}
+```
+
+The query added new records to the User and the Post tables:
+
+**User**
+
+| id | email | name | 
+| --- | --- | --- | 
+| `1` | `"alice@prisma.io"` | `"Alice"` | 
+
+**Post**
+
+| id | createdAt | updatedAt | title | content | published | authorId |
+| --- | --- | --- | 
+| `1` | `2020-03-21T16:45:01.246Z` | `2020-03-21T16:45:01.246Z` | `"Hello World"` | `null` | `false` | `1` |
+
+**Profile**
+| id | bio | userId |
+| --- | --- | --- | 
+| `1` | `"I like turtles"` | `1` |
+
+> **Note:** The numbers in the `authorId` column on `Post` and `userId` column on `Profile` both reference the `id` column of the `User` table, meaning the `id` value `1` column therefore refers to the first (and only) `User` record in the database.
+
+Before moving on to the next section, you'll "publish" the `Post` record you just created using an `update` query. Adjust the `main` function as follows:
+
+`index.ts`
+
+```ts
+async function main() {
+  const post = await prisma.post.update({
+    where: { id: 1 },
+    data: { published: true },
+  })
+  console.log(post)
+}
+```
+
+Now run the code using the same command as before:
+
+```shell
+npx ts-node index.ts
+```
+
+You will see the following output:
+
+```json
+{
+  id: 1,
+  title: 'Hello World',
+  content: null,
+  published: true,
+  authorId: 1
+}
+```
+
+The `Post` record with an `id` of `1` now got updated in the database:
+
+**Post**
+
+| id | title | content | published | authorId |
+| --- | --- | --- | 
+| `1` | `"Hello World"` | `null` | `true` | `1` |
+
+Fantastic, you just wrote new data into your database for the first time using Prisma Client 🚀
