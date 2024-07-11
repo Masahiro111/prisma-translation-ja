@@ -654,17 +654,17 @@ npx ts-node index.ts
   }
 ```
 
-This code creates a new `User` record together with new `Post` and `Profile` records using a [nested write]() query. The `User` record is connected to the two other ones via the `Post.author` ↔ `User.posts` and `Profile.user` ↔ `User.profile` [relation]() fields respectively.
+このコードは、[ネストされた write]() クエリを使用して、新しい `User` レコードと新しい `Post` レコードと `Profile` レコードを作成します。`User` レコードは、それぞれ `Post.author` ↔ `User.posts` および `Profile.user` ↔ `User.profile` [relation]() フィールドを介して他の２つのレコードに接続されます。
 
-Notice that you're passing the [include]() option to `findMany` which tells Prisma Client to include the posts and profile relations on the returned `User` objects.
+[include]() オプションを `findMany` に渡していることに注意してください。このオプションは、返された `User` オブジェクトに投稿とプロフィール関係を含めるように Prisma Client に指示します。
 
-Run the code with this command:
+次のコマンドでコードを実行します。
 
 ```shell
 npx ts-node index.ts
 ```
 
-The output should look similar to this:
+出力は次のようになります。
 
 ```js
 [
@@ -692,7 +692,7 @@ The output should look similar to this:
 ]
 ```
 
-Also note that `allUsers` is statically typed thanks to [Prisma Client's generated types](). You can observe the type by hovering over the `allUsers` variable in your editor. It should be typed as follows:
+また、`allUsers` は [Prisma Client の生成された型]() により静的に型付けされていることにも注意してください。エディターで `allUsers` 変​​数にマウスを合わせると、型を確認できます。次のように入力する必要があります。
 
 ```ts
 const allUsers: (User & {
@@ -708,7 +708,7 @@ export type Post = {
 }
 ```
 
-The query added new records to the User and the Post tables:
+クエリにより、User テーブルと Post テーブルに新しいレコードが追加されました。
 
 **User**
 
@@ -727,9 +727,9 @@ The query added new records to the User and the Post tables:
 | --- | --- | --- | 
 | `1` | `"I like turtles"` | `1` |
 
-> **Note:** The numbers in the `authorId` column on `Post` and `userId` column on `Profile` both reference the `id` column of the `User` table, meaning the `id` value `1` column therefore refers to the first (and only) `User` record in the database.
+> **Note:** `Post` の `authorId` 列と `Profile` の `userId` 列の数字はどちらも `User` テーブルの `id` 列を参照します。つまり、`id` 値 `1` 列はデータベース内の最初の (そして唯一の) `User` レコードを参照します。
 
-Before moving on to the next section, you'll "publish" the `Post` record you just created using an `update` query. Adjust the `main` function as follows:
+次のセクションに進む前に、`update` クエリを使用して、作成した `Post` レコードを「公開」します。`main` 関数を次のように調整します。
 
 `index.ts`
 
@@ -743,13 +743,13 @@ async function main() {
 }
 ```
 
-Now run the code using the same command as before:
+次に、前と同じコマンドを使用してコードを実行します。
 
-```shell
-npx ts-node index.ts
-```
+```シェル
+npx ts-ノード インデックス.ts
+「」
 
-You will see the following output:
+次の出力が表示されます。
 
 ```json
 {
@@ -761,7 +761,7 @@ You will see the following output:
 }
 ```
 
-The `Post` record with an `id` of `1` now got updated in the database:
+`id` が `1` の `Post` レコードがデータベース内で更新されました。
 
 **Post**
 
@@ -769,4 +769,4 @@ The `Post` record with an `id` of `1` now got updated in the database:
 | --- | --- | --- | 
 | `1` | `"Hello World"` | `null` | `true` | `1` |
 
-Fantastic, you just wrote new data into your database for the first time using Prisma Client 🚀
+素晴らしいですね。Prisma Client を使用して初めてデータベースに新しいデータを書き込みました 🚀
