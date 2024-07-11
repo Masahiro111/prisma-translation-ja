@@ -558,13 +558,13 @@ npm install @prisma/client
 
 Prisma スキーマを更新するたびに、prisma migrate dev または prisma db push を使用してデータベーススキーマを更新する必要があります。これにより、データベーススキーマが Prisma スキーマと同期されます。これらのコマンドにより、Prisma Client も再生成されます。
 
-# Querying the database
+# データベースのクエリ
 
-## Write your first query with Prisma Client
+## Prisma Client で最初のクエリを書く
 
-Now that you have generated [Prisma Client](), you can start writing queries to read and write data in your database. For the purpose of this guide, you'll use a plain Node.js script to explore some basic features of Prisma Client.
+[Prisma Client]() を生成したので、データベースのデータの読み取りと書き込みを行うクエリの作成を開始できます。このガイドでは、簡単な Node.js スクリプトを使用して、Prisma Client の基本的な機能をいくつか説明します。
 
-Create a new file named `index.ts` and add the following code to it:
+`index.ts` という名前の新しいファイルを作成し、次のコードを追加します。
 
 `index.ts`
 
@@ -588,15 +588,15 @@ main()
   })
 ```
 
-Here's a quick overview of the different parts of the code snippet:
+コードスニペットのさまざまな部分の概要を次に示します。
 
-1. Import the `PrismaClient` constructor from the `@prisma/client` node module
-1. Instantiate `PrismaClient`
-1. Define an `async` function named `main` to send queries to the database
-1. Call the `main` function
-1. Close the database connections when the script terminates
+1. `@prisma/client` ノードモジュールから `PrismaClient` コンストラクタをインポートします
+1. `PrismaClient` をインスタンス化する
+1. データベースにクエリを送信するための `main` という名前の `async` 関数を定義します
+1. `main` 関数を呼び出す
+1. スクリプトが終了したらデータベース接続を閉じる
 
-Inside the `main` function, add the following query to read all `User` records from the database and print the result:
+`main` 関数内に次のクエリを追加して、データベースからすべての `User` レコードを読み取り、結果を出力します。
 
 `index.ts`
 
@@ -608,24 +608,24 @@ Inside the `main` function, add the following query to read all `User` records f
   }
 ```
 
-Now run the code with this command:
+次のコマンドでコードを実行します。
 
 ```
 npx ts-node index.ts
 ```
 
-This should print an empty array because there are no User records in the database yet:
+データベースにはまだユーザーレコードがないため、空の配列が出力されます。
 
 ```
 []
 ```
 
 
-## Write data into the database
+## データベースにデータを書き込む
 
-The `findMany` query you used in the previous section only reads data from the database (although it was still empty). In this section, you'll learn how to write a query to write new records into the `Post` and `User` tables.
+前のセクションで使用した `findMany` クエリは、データベースからデータを読み取るだけです (ただし、データベースはまだ空です)。このセクションでは、`Post` テーブルと `User` テーブルに新しいレコードを書き込むクエリの記述方法を学習します。
 
-Adjust the `main` function to send a `create` query to the database:
+`main` 関数を調整して、`create` クエリをデータベースに送信します。
 
 `index.ts`
 
